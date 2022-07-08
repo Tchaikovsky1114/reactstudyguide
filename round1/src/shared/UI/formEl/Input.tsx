@@ -1,0 +1,104 @@
+import React, { ChangeEvent, ReducerState, useReducer } from 'react';
+import { validate } from '../../../util/validator';
+import { ValidatorTypes } from '../../../util/validator';
+interface childProps {
+  element: string;
+  id: string;
+  type: string;
+  label: string;
+  placeholder: string;
+  errorText: string;
+  validators: ValidatorTypes[];
+  rows?: number
+}
+
+interface InputState {
+  value: string;
+  isBlur: boolean;
+  isValid: boolean | undefined;
+}
+
+type Actions =
+  | { type: 'CHANGE'; payload: string; validators: ValidatorTypes[] }
+  | { type: 'BLUR' };
+
+const inputReducer = (state: InputState, action: Actions): InputState => {
+  switch (action.type) {
+    case 'CHANGE':
+      return {
+        ...state,
+        value: action.payload,
+        isValid: validate(action.payload, action.validators),
+      };
+    case 'BLUR':
+      return {
+        ...state,
+        isBlur: true,
+      };
+    default:
+      return state;
+  }
+};
+
+const Input = ({
+  label,
+  element,
+  type,
+  id,
+  placeholder,
+  validators,
+  errorText,
+  rows
+}: childProps) => {
+  const [inputState, dispatch] = useReducer(inputReducer, {
+    value: '',
+    isBlur: false,
+    isValid: false,
+  });
+
+  const onChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    dispatch({
+      type: 'CHANGE',
+      payload: e.currentTarget.value,
+      validators: validators,
+    });
+  };
+
+  const onBlur = () => {
+    dispatch({
+      type: 'BLUR',
+    });
+  };
+  const conditionalInput =
+    element === 'input' ? (
+      <input
+      className='block w-64 border border-slate-200 py-1 px-2 grow'
+        id={id}
+        type={type}
+        value={inputState.value}
+        placeholder={placeholder}
+        onChange={onChange}
+        onBlur={onBlur}
+      />
+    ) : (
+      <textarea
+        id={id}
+        rows={rows || 3}
+        value={inputState.value}
+        onChange={onChange}
+        onBlur={onBlur}
+      />
+    );
+
+  return (
+    <>
+    <div className="gap-2">
+      <label className='font-bold ' htmlFor={id}>{label}</label>
+      {conditionalInput}  
+    </div>
+    {!inputState.isValid && inputState.isBlur && <p className=' text-sm text-slate-600 border-b-2 border-b-red-500 p-0 m-0'>{errorText}</p>}
+    </>
+  );
+};
+
+export default Input;
