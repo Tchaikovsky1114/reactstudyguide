@@ -52,7 +52,7 @@ const ImageUpload = ({ id, inputHandler }: ChildProps) => {
         onChange={selectImageHandler}
         style={{display:'none'}}
       />
-      <div>{previewUrl && <div className='p-4'><img src={previewUrl} alt="Profile" /></div>}</div>
+      <div>{previewUrl && <div className='flex justify-center items-center relative'><img className='absolut top-0 left-0 rounded-full w-40 object-cover' src={previewUrl} alt="Profile" /></div>}</div>
       <Button type={ButtonTypes.BUTTON} onClick={pickImage}>
         사진 고르기
       </Button>
