@@ -4,7 +4,7 @@ import { ValidatorTypes } from '../../../util/validator';
 
 
 // input을 사용하는 곳에서 받아 올 props
-interface childProps {
+interface ChildProps {
   element: string;
   id: string;
   type: string;
@@ -44,27 +44,24 @@ const inputReducer = (state: InputState, action: Actions): InputState => {
         value: action.payload,
         isValid: validate(action.payload, action.validators),
       };
+
+
     // action.type === 'BLUR'
     case 'BLUR':
       return {
         ...state,
         isBlur: true,
       };
+
+
+
+
     default:
       return state;
   }
 };
 
-const Input = ({
-  label,
-  element,
-  type,
-  id,
-  placeholder,
-  validators,
-  errorText,
-  rows
-}: childProps) => {
+const Input = ({label,element,type,id,placeholder,validators,errorText,rows}: ChildProps) => {
 
   // reducer함수는 state,action 순으로 받는다면, useReducer에서의 인자는 reducer함수, state 순서로 받는다.
   const [inputState, dispatch] = useReducer(inputReducer, {
@@ -78,7 +75,7 @@ const Input = ({
     dispatch({
       type: 'CHANGE',
       payload: e.currentTarget.value,
-      validators: validators,
+      validators,
     });
   };
 
@@ -116,7 +113,7 @@ const Input = ({
   return (
     <>
     <div className="gap-2">
-      <label className='font-bold ' htmlFor={id}>{label}</label>
+      <label className='font-bold ' htmlFor={id}>{label}</label>     
       {conditionalInput}  
     </div>
     {!inputState.isValid && inputState.isBlur && <p className=' text-sm text-slate-600 border-b-2 border-b-red-500 p-0 m-0'>{errorText}</p>}
