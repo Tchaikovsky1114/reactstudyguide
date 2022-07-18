@@ -98,7 +98,7 @@ const formReducer = (state:initialStateType,action:Actions):initialStateType => 
 }
 
 
-// useForm에 처음으로 들어오는 값을 명시
+// useForm에 처음으로 들어오는 값을 명시, initialFormValid는 따로 boolean값으로 명시.
 interface InitialInputType {
   [key:string] : {
     value: string | File
@@ -107,6 +107,7 @@ interface InitialInputType {
 }
 
 export const useForm = (initialInput:InitialInputType,initialFormValid:boolean) => {
+  
   
   const [formState,dispatch] = useReducer(formReducer,{
     inputs:initialInput,
