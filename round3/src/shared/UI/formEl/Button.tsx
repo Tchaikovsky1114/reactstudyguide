@@ -1,6 +1,7 @@
 import React from 'react';
 import { ButtonTypes } from '../../enum';
 
+
 interface ChildProps {
   href?: string;
   children?: React.ReactNode;
@@ -16,6 +17,7 @@ interface ChildProps {
   onClick?: any;
 }
 
+
 const Button = ({
   onClick,
   defaultSize,
@@ -30,6 +32,10 @@ const Button = ({
   inverse,
   defaultColor,
 }: ChildProps) => {
+  
+  
+  
+  
   if (href) {
     return (
       <a
@@ -49,9 +55,17 @@ const Button = ({
       </a>
     );
   }
+
+
+
   if (to) {
     // router 설치후 Link를 사용할 때 작성.
+    
   }
+
+
+
+
   return (
     <button
       className={`

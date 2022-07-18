@@ -2,6 +2,10 @@ import React, { ChangeEvent, ReducerState, useEffect, useReducer } from 'react';
 import { initialStateType } from '../../../hooks/useForm';
 import { validate } from '../../../util/validator';
 import { ValidatorTypes } from '../../../util/validator';
+
+
+
+
 interface childProps {
   element: string;
   id: string;
@@ -14,15 +18,20 @@ interface childProps {
   inputHandler: (id:string,value:string,isValid:boolean)=> void;
 }
 
+
 interface InputState {
   value: string;
   isBlur: boolean;
   isValid: boolean;
 }
 
+
 type Actions =
   | { type: 'CHANGE'; payload: string; validators: ValidatorTypes[] }
   | { type: 'BLUR'; validators: ValidatorTypes[] };
+
+
+
 
 const inputReducer = (state: InputState, action: Actions): InputState => {
   switch (action.type) {
@@ -42,6 +51,8 @@ const inputReducer = (state: InputState, action: Actions): InputState => {
       return state;
   }
 };
+
+
 
 const Input = ({
   label,
@@ -74,6 +85,7 @@ const Input = ({
     });
   };
 
+  // id, value,isValid가 바뀔때마다 inputHanlder를 통해 form 전체에 대한 Validation도 같이 진행된다.
   useEffect(() => {
     inputHandler(id, inputState.value, inputState.isValid);
   }, [id, inputState.value, inputState.isValid, inputHandler]);
