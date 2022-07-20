@@ -15,18 +15,7 @@ function App() {
   const [loginMode, setLoginMode] = useState(true);
 
 
-  const {formState,inputHandler,setForm} = useForm({
-    email: {
-      value: '',
-      isValid: true
-    },
-    password: {
-      value: '',
-      isValid: true
-    }
-  },
-  false
-  )
+  const {formState,inputHandler,setForm} = useForm({},false)
 
   const onSubmit = (e:FormEvent<HTMLFormElement>) => {
     e.preventDefault()

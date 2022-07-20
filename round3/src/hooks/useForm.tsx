@@ -53,7 +53,7 @@ const formReducer = (state:initialStateType,action:Actions):initialStateType => 
     let formValid = true
 
     // 객체를 순회하는 for ... in문.
-    // (((state)))의 inputs 객체에 inputId가 존재하지 않는다면  계속 진행
+    // (((state)))의 inputs 객체에 inputId가 존재하지 않는다면 계속 진행
     // inputs 객체에 inputId가 존재하지 않는다는 것은 첫 inputs 객체의 상태와 새로운 inputs가 들어왔을 때를 의미한다.
     for(const inputId in state.inputs){
       if(!state.inputs[inputId]){
@@ -108,7 +108,7 @@ interface InitialInputType {
 
 export const useForm = (initialInput:InitialInputType,initialFormValid:boolean) => {
   
-  
+
   const [formState,dispatch] = useReducer(formReducer,{
     inputs:initialInput,
     isFormValid:initialFormValid

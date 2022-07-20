@@ -29,18 +29,17 @@ const ImageUpload = ({ id, inputHandler }: ChildProps) => {
     }
   };
 
-
-  useEffect(()=> {
-    if(!file) return
+  useEffect(() => {
+    if (!file) return;
     const fileReader = new FileReader();
     fileReader.onload = () => {
-      const text = fileReader.result as string
+      const text = fileReader.result as string;
       setPreviewUrl(text);
     };
 
     fileReader.readAsDataURL(file);
-    console.log(previewUrl)
-  },[file,previewUrl])
+    console.log(previewUrl);
+  }, [file, previewUrl]);
 
   return (
     <div>
@@ -50,9 +49,28 @@ const ImageUpload = ({ id, inputHandler }: ChildProps) => {
         type="file"
         accept=".jpg, .png, .jpeg"
         onChange={selectImageHandler}
-        style={{display:'none'}}
+        style={{ display: 'none' }}
       />
-      <div>{previewUrl && <div className='flex justify-center items-center relative'><img className='absolut top-0 left-0 rounded-full w-40 h-40 object-cover' src={previewUrl} alt="Profile" /></div>}</div>
+      <div>
+
+
+
+
+
+        
+        {previewUrl && (
+          <div className="flex justify-center items-center relative">
+            <img
+              className="absolut top-0 left-0 rounded-full w-40 h-40 object-cover"
+              src={previewUrl}
+              alt="Profile"
+            />
+          </div>
+        )}
+
+
+
+      </div>
       <Button type={ButtonTypes.BUTTON} onClick={pickImage}>
         사진 고르기
       </Button>
@@ -61,4 +79,3 @@ const ImageUpload = ({ id, inputHandler }: ChildProps) => {
 };
 
 export default ImageUpload;
-

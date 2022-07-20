@@ -25,7 +25,9 @@ type Actions  = {
 
 
 const formReducer = (state:initialStateType,action:Actions):initialStateType => {
- switch(action.type) {
+ 
+  switch(action.type) {
+
   case ActionTypes.CHANGE :
     let formValid = true
     for(const inputId in state.inputs){
